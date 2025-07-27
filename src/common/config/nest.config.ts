@@ -1,7 +1,7 @@
 import { registerAs } from "@nestjs/config";
-import { IEnvironmentConfig } from '../../common';
+import { INestConfig } from '../../common';
 
-export default registerAs('environment', (): IEnvironmentConfig => (
+export default registerAs('nest', (): INestConfig => (
     {
         port: Number(process.env.PORT )|| 3000,
         host: process.env.HOST || 'localhost',

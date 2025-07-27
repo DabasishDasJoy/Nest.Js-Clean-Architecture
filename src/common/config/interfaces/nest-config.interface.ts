@@ -1,4 +1,4 @@
-export interface IEnvironmentConfig {
+export interface INestConfig {
     port: number;
     host: string;
     apiPrefix: string;
