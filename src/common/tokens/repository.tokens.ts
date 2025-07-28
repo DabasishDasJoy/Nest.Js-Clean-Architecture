@@ -1,0 +1,7 @@
+export const REPOSITORY_TOKENS = {
+    USER: Symbol('USER_REPOSITORY'),
+    USER_SESSION: Symbol('USER_SESSION_REPOSITORY'),
+    POST: Symbol('POST_REPOSITORY'),
+    COMMENT: Symbol('COMMENT_REPOSITORY'),
+    DRAFT: Symbol('DRAFT_REPOSITORY'),
+  } as const;

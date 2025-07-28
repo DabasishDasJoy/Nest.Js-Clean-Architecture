@@ -1,25 +1,24 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { INestConfig, IDatabaseConfig } from './common';
+import { IServerConfig, IDatabaseConfig } from './common/config/index';
 import { Logger } from '@nestjs/common';
-
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
   const app = await NestFactory.create(AppModule, { abortOnError: false });
 
   const configService = app.get(ConfigService);
-  const nestConfig = configService.get<INestConfig>('environment', {infer: true});
-  const dbConfig = configService.get<IDatabaseConfig>('database', {infer: true});
+  const serverConfig = configService.get<IServerConfig>('server');
+  const dbConfig = configService.get<IDatabaseConfig>('database');
 
-  if (!nestConfig || !dbConfig) {
-    throw new Error('Environment configuration not found');
+  if (!serverConfig || !dbConfig) {
+    throw new Error('Configuration not found');
   }
 
-  await app.listen(nestConfig.port, nestConfig.host);
-  logger.log(`🚀 Application is running on: http://${nestConfig.host}:${nestConfig.port}/${nestConfig.apiPrefix}`);
-  logger.log(`🌐 CORS enabled for origin: ${nestConfig.corsOrigin}`);
-  logger.log(`🌐 CORS enabled for origin: ${dbConfig.PORT}`);
+  await app.listen(serverConfig.port, serverConfig.host);
+  logger.log(
+    `🚀 Application is running on: http://${serverConfig?.host}:${serverConfig?.port}/${serverConfig?.apiPrefix}`,
+  );
 }
 bootstrap();

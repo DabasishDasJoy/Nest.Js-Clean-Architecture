@@ -1,20 +1,15 @@
-import { Controller, Get, Head, HostParam, Ip, Redirect } from '@nestjs/common';
+import { Controller, Get, Redirect } from '@nestjs/common';
 
 @Controller('blog')
 export class BlogController {
-  @Get()
-  test(@HostParam() HostParam) {
-    return HostParam;
-  }
+  // @Get()
+  // test(@HostParam() HostParam) {
+  //   return HostParam;
+  // }
 
-  @Head()
-  head(){
-    return "Head"
-  }
-
-  @Get("redirect")
+  @Get('redirect')
   @Redirect()
-  redirect(){
+  redirect() {
     return { url: 'https://nestjs.com' };
   }
 }

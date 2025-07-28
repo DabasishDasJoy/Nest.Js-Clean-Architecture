@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
-import * as injects from './index';
+import { DatabaseModule, SwaggerModule, ConfigModule } from './';
 
-const moduleList = injects.ObjectUtils.getModuleList(injects);
 
 @Module({
-  imports: [
-    ...moduleList,
-  ],
+  imports: [DatabaseModule, SwaggerModule, ConfigModule],
 })
 export class CommonModule {}
