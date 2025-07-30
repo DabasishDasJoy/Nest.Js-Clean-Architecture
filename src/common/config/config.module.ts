@@ -4,7 +4,9 @@ import { serverValidationSchema, dbConfigValidationSchema } from './index';
 import serverConfig from './config/server.config';
 import databaseConfig from './config/database.config';
 
-export const combinedValidationSchema = serverValidationSchema.concat(dbConfigValidationSchema);
+export const combinedValidationSchema = serverValidationSchema.concat(
+  dbConfigValidationSchema,
+);
 
 @Module({
   imports: [

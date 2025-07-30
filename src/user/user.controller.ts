@@ -1,9 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
-import { ShowingService } from './showing/showing.service';
+import { Controller, Get, Inject } from '@nestjs/common';
+import { REPOSITORY_TOKENS } from 'src/common/tokens/repository.tokens';
+import { IUserShowingService } from './interfaces/user-showing-service.interface';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly showingService: ShowingService) {}
+  constructor(
+    @Inject(REPOSITORY_TOKENS.USER_SHOWING_SERVICE)
+    private readonly showingService: IUserShowingService,
+  ) {}
 
   @Get('')
   showAllUsers() {

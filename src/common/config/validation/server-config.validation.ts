@@ -1,4 +1,4 @@
-import * as Joi from "joi";
+import * as Joi from 'joi';
 
 export const serverValidationSchema = Joi.object({
   NODE_ENV: Joi.string().valid('development', 'production', 'test').required(),
