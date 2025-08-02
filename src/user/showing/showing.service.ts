@@ -11,6 +11,8 @@ export class ShowingService implements IUserShowingService {
   ) {}
 
   async showAllUsers() {
+    // Fetch all users using the user repository
+    // and return the result.
     return await this.userRepository.getUsers();
   }
 }
