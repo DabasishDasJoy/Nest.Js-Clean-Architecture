@@ -9,7 +9,7 @@ export class UserController {
     private readonly showingService: IUserShowingService,
   ) {}
 
-  @Get('')
+  @Get('list')
   showAllUsers() {
     return this.showingService.showAllUsers();
   }
