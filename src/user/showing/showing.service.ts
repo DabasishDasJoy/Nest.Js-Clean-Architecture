@@ -17,6 +17,7 @@ export class ShowingService implements IUserShowingService {
     // to respond to the 'list' endpoint.
     // It returns a promise that resolves to an array of User objects.
     // The UserRepository's getUsers method is called to retrieve the users.
+    // This service is injected into the UserController.
     return await this.userRepository.getUsers();
   }
 }
