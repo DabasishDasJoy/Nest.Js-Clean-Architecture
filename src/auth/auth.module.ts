@@ -5,7 +5,7 @@ import { RegisterService } from './register/register.service';
 import { AuthController } from './auth.controller';
 
 @Module({
-  providers: [LoginService, LogoutService, RegisterService],
-  controllers: [AuthController],
+    providers: [LoginService, LogoutService, RegisterService],
+    controllers: [AuthController],
 })
 export class AuthModule {}

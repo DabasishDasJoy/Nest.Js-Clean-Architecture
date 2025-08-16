@@ -5,7 +5,7 @@ import { PublishingModule } from './publishing/publishing.module';
 import { BlogController } from './blog.controller';
 
 @Module({
-  imports: [DraftingModule, CommentingModule, PublishingModule],
-  controllers: [BlogController],
+    imports: [DraftingModule, CommentingModule, PublishingModule],
+    controllers: [BlogController],
 })
 export class BlogModule {}

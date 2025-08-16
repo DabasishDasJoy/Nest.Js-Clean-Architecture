@@ -9,22 +9,22 @@ import { DatabaseModule } from 'src/common';
 import { REPOSITORY_TOKENS } from 'src/common/tokens/repository.tokens';
 
 @Module({
-  imports: [DatabaseModule],
-  controllers: [UserController],
-  providers: [
-    {
-      provide: REPOSITORY_TOKENS.USER,
-      useClass: UserRepository,
-    },
-    {
-      provide: REPOSITORY_TOKENS.USER_SHOWING_SERVICE,
-      useClass: ShowingService,
-    },
-    CreatingService,
-    RemovingService,
-    EditingService,
-    UserRepository,
-  ],
-  exports: [REPOSITORY_TOKENS.USER],
+    imports: [DatabaseModule],
+    controllers: [UserController],
+    providers: [
+        {
+            provide: REPOSITORY_TOKENS.USER,
+            useClass: UserRepository,
+        },
+        {
+            provide: REPOSITORY_TOKENS.USER_SHOWING_SERVICE,
+            useClass: ShowingService,
+        },
+        CreatingService,
+        RemovingService,
+        EditingService,
+        UserRepository,
+    ],
+    exports: [REPOSITORY_TOKENS.USER],
 })
 export class UserModule {}

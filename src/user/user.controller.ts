@@ -4,13 +4,13 @@ import { IUserShowingService } from './interfaces/user-showing-service.interface
 
 @Controller('user')
 export class UserController {
-  constructor(
-    @Inject(REPOSITORY_TOKENS.USER_SHOWING_SERVICE)
-    private readonly showingService: IUserShowingService,
-  ) {}
+    constructor(
+        @Inject(REPOSITORY_TOKENS.USER_SHOWING_SERVICE)
+        private readonly showingService: IUserShowingService,
+    ) {}
 
-  @Get('list')
-  showAllUsers() {
-    return this.showingService.showAllUsers();
-  }
+    @Get('list')
+    showAllUsers() {
+        return this.showingService.showAllUsers();
+    }
 }
