@@ -1,8 +1,6 @@
-import { Controller, Get, Inject, Version } from '@nestjs/common';
+import { Controller, Get, Inject } from '@nestjs/common';
 import { REPOSITORY_TOKENS } from 'src/common/tokens/repository.tokens';
-import { IUserShowingService } from './interfaces/user-showing-service.interface';
 import { ShowingService } from './showing/showing.service';
-import { version } from 'os';
 
 @Controller('user')
 export class UserController {

@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IUserRepository } from '../interfaces/user-repository.interface';
 import { REPOSITORY_TOKENS } from 'src/common/tokens/repository.tokens';
 import { IUserShowingService } from '../interfaces/user-showing-service.interface';
 import { UserRepository } from '../repositories/user.repository';
