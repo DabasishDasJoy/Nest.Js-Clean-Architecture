@@ -10,7 +10,22 @@ export class ShowingService implements IUserShowingService {
         private readonly userRepository: IUserRepository,
     ) {}
 
+<<<<<<< HEAD
     async showAllUsers() {
         return await this.userRepository.getUsers();
     }
+=======
+  async showAllUsers() {
+    // Fetch all users using the user repository
+    // and return the result.
+    // This method is used by the UserController
+    // to respond to the 'list' endpoint.
+    // It returns a promise that resolves to an array of User objects.
+    // The UserRepository's getUsers method is called to retrieve the users.
+    // This service is injected into the UserController.
+    // The UserController uses this service to handle the 'list' endpoint.
+    // The service is responsible for business logic related to showing users.
+    return await this.userRepository.getUsers();
+  }
+>>>>>>> b8046a437ad159702b77cd4826611261a90a3ba1
 }
