@@ -5,4 +5,5 @@ export const REPOSITORY_TOKENS = {
     POST: Symbol('POST_REPOSITORY'),
     COMMENT: Symbol('COMMENT_REPOSITORY'),
     DRAFT: Symbol('DRAFT_REPOSITORY'),
+    REGISER_SERVICE: Symbol('REGISTER_SERVICE'),
 } as const;

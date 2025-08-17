@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { REPOSITORY_TOKENS } from 'src/common/tokens/repository.tokens';
+import { IUserRepository } from '../interfaces/user-repository.interface';
 import { IUserShowingService } from '../interfaces/user-showing-service.interface';
-import { UserRepository } from '../repositories/user.repository';
 
 @Injectable()
 export class ShowingService implements IUserShowingService {
     constructor(
         @Inject(REPOSITORY_TOKENS.USER)
-        private readonly userRepository: UserRepository,
+        private readonly userRepository: IUserRepository,
     ) {}
 
     async showAllUsers() {

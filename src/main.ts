@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { IDatabaseConfig, IServerConfig } from './common/config/index';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
     const logger = new Logger('Bootstrap');
@@ -27,14 +28,15 @@ async function bootstrap() {
             whitelist: true,
             forbidNonWhitelisted: true,
             validationError: { target: false, value: false },
-            transform: true,
-            transformOptions: {
-                enableImplicitConversion: true,
-            },
         }),
     );
-    // !learn this
-    app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+    app.useGlobalFilters(new HttpExceptionFilter());
+    app.useGlobalInterceptors(
+        new ClassSerializerInterceptor(app.get(Reflector), {
+            excludeExtraneousValues: true,
+            enableImplicitConversion: true,
+        }),
+    );
 
     app.enableVersioning({
         type: VersioningType.URI,

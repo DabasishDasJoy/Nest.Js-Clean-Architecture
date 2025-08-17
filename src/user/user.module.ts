@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './user.controller';
-import { CreatingService } from './creating/creating.service';
-import { RemovingService } from './removing/removing.service';
-import { EditingService } from './editing/editing.service';
-import { ShowingService } from './showing/showing.service';
-import { UserRepository } from './repositories/user.repository';
 import { DatabaseModule } from 'src/common';
 import { REPOSITORY_TOKENS } from 'src/common/tokens/repository.tokens';
+import { CreatingService } from './creating/creating.service';
+import { EditingService } from './editing/editing.service';
+import { RemovingService } from './removing/removing.service';
+import { UserRepository } from './repositories/user.repository';
+import { ShowingService } from './showing/showing.service';
+import { UserController } from './user.controller';
 
 @Module({
     imports: [DatabaseModule],
@@ -23,7 +23,6 @@ import { REPOSITORY_TOKENS } from 'src/common/tokens/repository.tokens';
         CreatingService,
         RemovingService,
         EditingService,
-        UserRepository,
     ],
     exports: [REPOSITORY_TOKENS.USER],
 })

@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class RegisterDto {
     @IsString()
@@ -22,8 +22,4 @@ export class RegisterDto {
     @IsNotEmpty()
     @Exclude({ toPlainOnly: true })
     password?: string;
-
-    @IsNotEmpty()
-    @IsBoolean()
-    isActive: boolean;
 }

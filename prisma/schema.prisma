@@ -16,7 +16,12 @@ datasource db {
 
 
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
+  id            Int         @default(autoincrement()) @id
+  email         String      @unique
+  firstName     String
+  lastName      String
+  username      String      @unique
+
+  @@map("users")
+  @@index([email, username])
 }
