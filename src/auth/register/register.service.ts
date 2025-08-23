@@ -5,11 +5,13 @@ import { BloomFilterService } from 'src/common/bloom-filter/bloom-filter.service
 import { REPOSITORY_TOKENS } from 'src/common/tokens/repository.tokens';
 import { IUserRepository } from 'src/user/interfaces/user-repository.interface';
 import { RegisterDto } from './dto/register.dto';
+import { SignInDto } from './dto/signin.dto';
 import { IRegisterService } from './interfaces/register-service.interface';
 
 @Injectable()
 export class RegisterService implements IRegisterService {
     private filter: BloomFilter;
+
     constructor(
         @Inject(REPOSITORY_TOKENS.USER) private readonly userRepositoy: IUserRepository,
         private readonly bloomfilter: BloomFilterService,
@@ -30,6 +32,16 @@ export class RegisterService implements IRegisterService {
         const user = await this.userRepositoy.createUser(registerDto);
         this.filter.add(registerDto.username);
         return user;
+    }
+
+    async signIn(singInDto: SignInDto): Promise<any> {
+        const user = await this.userRepositoy.findUser(signInDto.usernameOrEmail);
+
+        if (!user || user.password !== singInDto.password) {
+            return { message: 'Invalid credentials' };
+        }
+
+        return { message: 'SignIn successful', user };
     }
 
     isUserNameTakenV2(username: string): boolean {

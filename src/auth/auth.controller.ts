@@ -2,13 +2,13 @@ import { BadRequestException, Body, Controller, Inject, Post, Version } from '@n
 import { User } from 'generated/prisma';
 import { REPOSITORY_TOKENS } from 'src/common/tokens/repository.tokens';
 import { RegisterDto } from './register/dto/register.dto';
-import { RegisterService } from './register/register.service';
+import { IRegisterService } from './register/interfaces/register-service.interface';
 
 @Controller('auth')
 export class AuthController {
     constructor(
         @Inject(REPOSITORY_TOKENS.REGISER_SERVICE)
-        private readonly registerService: RegisterService,
+        private readonly registerService: IRegisterService,
     ) {}
 
     @Post('register')

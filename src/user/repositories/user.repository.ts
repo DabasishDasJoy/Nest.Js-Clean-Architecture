@@ -24,4 +24,10 @@ export class UserRepository implements IUserRepository {
     async createUser(registerDto: RegisterDto): Promise<User> {
         return await this.prisma.user.create({ data: registerDto });
     }
+
+    async findUser(usernameOrEmail: string): Promise<User | null> {
+        return await this.prisma.user.findFirst({
+            where: { OR: [{ email: usernameOrEmail }, { username: usernameOrEmail }] },
+        });
+    }
 }
