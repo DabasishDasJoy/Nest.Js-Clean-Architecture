@@ -34,10 +34,10 @@ export class RegisterService implements IRegisterService {
         return user;
     }
 
-    async signIn(singInDto: SignInDto): Promise<any> {
+    async signIn(signInDto: SignInDto): Promise<any> {
         const user = await this.userRepositoy.findUser(signInDto.usernameOrEmail);
 
-        if (!user || user.password !== singInDto.password) {
+        if (!user || user.password !== signInDto.password) {
             return { message: 'Invalid credentials' };
         }
 

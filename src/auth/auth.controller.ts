@@ -13,6 +13,7 @@ export class AuthController {
 
     @Post('register')
     async registerV1(@Body() body: RegisterDto): Promise<User | { message: 'Username taken' }> {
+        console.log(body.password);
         if (await this.registerService.isUserNameTaken(body.username)) {
             throw new BadRequestException('Username already taken');
         }
