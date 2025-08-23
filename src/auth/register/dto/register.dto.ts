@@ -1,4 +1,4 @@
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose, Type } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class RegisterDto {
@@ -21,6 +21,38 @@ export class RegisterDto {
 
     @IsString()
     @IsNotEmpty()
-    @Exclude({ toPlainOnly: true })
     password: string;
+}
+
+export class UserResponseDto {
+    @Expose()
+    id: number;
+
+    @Expose()
+    firstName: string;
+
+    @Expose()
+    lastName: string;
+
+    @Expose()
+    username: string;
+
+    @Expose()
+    email: string;
+
+    @Exclude()
+    password: string;
+}
+
+export class ResponseDto {
+    @Expose()
+    message: string;
+
+    @Expose()
+    @Type(() => UserResponseDto)
+    user: UserResponseDto;
+
+    constructor(partial: Partial<ResponseDto>) {
+        Object.assign(this, partial);
+    }
 }
