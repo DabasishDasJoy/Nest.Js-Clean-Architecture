@@ -1,3 +1,7 @@
+import { SignInResponseDto } from 'src/auth/login/dto/sign-in.dto';
+import { UserResponseDto } from '../dto/register.dto';
+import { GRANTTYPE } from '../dto/signin.dto';
+
 export interface ILoginService {
-    signIn(signInDto: any): Promise<string>;
+    login(user: UserResponseDto, grantType: GRANTTYPE): SignInResponseDto;
 }

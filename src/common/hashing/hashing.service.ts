@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { IHashingService } from './interfaces/hasing-service.interface';
+import { IHashingService } from './interfaces/hashing-service.interface';
 
 @Injectable()
 export class HashingService implements IHashingService {
-    compare(data: string, hashedData: string): Promise<boolean> {
-        return bcrypt.compare(data, hashedData);
+    async compare(data: string, hashedData: string): Promise<boolean> {
+        return await bcrypt.compare(data, hashedData);
     }
 
     async hash(data: string): Promise<string> {

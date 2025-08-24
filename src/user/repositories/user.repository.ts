@@ -10,7 +10,7 @@ export class UserRepository implements IUserRepository {
     constructor(private readonly prisma: PrismaService) {}
 
     getUsers(): Promise<User[]> {
-        throw new Error('Method not implemented.');
+        return this.prisma.user.findMany();
     }
 
     async findByUserName(username: string): Promise<User | null> {

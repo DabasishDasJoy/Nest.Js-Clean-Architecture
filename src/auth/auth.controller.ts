@@ -1,16 +1,17 @@
-import { BadRequestException, Body, Controller, Inject, Post, Version } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Inject, Post, Req, UseGuards, Version } from '@nestjs/common';
 import { User } from 'generated/prisma';
 import { CLASS_TOKENS } from 'src/common/tokens/repository.tokens';
-import { RegisterDto, ResponseDto } from './register/dto/register.dto';
+import { LocalAuthGuard } from './guards/local.auth.guard';
+import { RegisterDto, ResponseDto, UserResponseDto } from './register/dto/register.dto';
 import { SignInDto } from './register/dto/signin.dto';
-import { IRegisterService } from './register/interfaces/register-service.interface';
+import { IRegisterServiceV1, IRegisterServiceV2 } from './register/interfaces/register-service.interface';
 import { ILoginService } from './register/interfaces/sign-in-service.interface';
 
 @Controller('auth')
 export class AuthController {
     constructor(
-        @Inject(CLASS_TOKENS.REGISER_SERVICE)
-        private readonly registerService: IRegisterService,
+        @Inject(CLASS_TOKENS.REGISTER_SERVICE)
+        private readonly registerService: IRegisterServiceV1 & IRegisterServiceV2,
         @Inject(CLASS_TOKENS.LOGIN_SERVICE)
         private readonly loginService: ILoginService,
     ) {}
@@ -21,7 +22,7 @@ export class AuthController {
             throw new BadRequestException('Username already taken');
         }
         const resp = await this.registerService.registerUser(body);
-        console.log('resp', resp);
+
         return new ResponseDto({ message: 'User registered successfully', user: resp });
     }
 
@@ -34,8 +35,9 @@ export class AuthController {
         return await this.registerService.registerUserV2(body);
     }
 
+    @UseGuards(LocalAuthGuard)
     @Post('signin')
-    async signIn(@Body() body: SignInDto): Promise<any> {
-        return await this.loginService.signIn(body);
+    signIn(@Body() body: SignInDto, @Req() req: { user: UserResponseDto }): any {
+        return this.loginService.login(req.user, body.grantType);
     }
 }
