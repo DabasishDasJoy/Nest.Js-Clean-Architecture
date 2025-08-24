@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import * as Crypto from 'crypto';
 import { IJwtService } from 'src/common/jwt-service/interfaces/jwt-service.interface';
 import { CLASS_TOKENS } from 'src/common/tokens/repository.tokens';
 import { UserResponseDto } from '../register/dto/register.dto';
@@ -11,6 +12,9 @@ export class LoginService implements ILoginService {
     constructor(@Inject(CLASS_TOKENS.JWT_SERVICE) private readonly jwtService: IJwtService) {}
 
     login(user: UserResponseDto, grantType: GRANTTYPE): SignInResponseDto {
+        const accessUUID = Crypto.randomUUID();
+        const refreshUUID = Crypto.randomUUID();
+
         const userPayload = {
             id: user.id,
             firstName: user.firstName,
@@ -18,6 +22,8 @@ export class LoginService implements ILoginService {
             username: user.username,
             email: user.email,
             password: '********',
+            accessUUID,
+            refreshUUID,
         };
 
         let accessToken: string | undefined;
@@ -30,6 +36,22 @@ export class LoginService implements ILoginService {
             refreshToken = this.jwtService.signRefreshToken(userPayload);
         }
 
+        user = new UserResponseDto(user);
+
         return new SignInResponseDto({ accessToken, refreshToken, user });
     }
+
+    // async storeTokenInRedis(user: { accessUUID: string; id: string; exp: number }, type: TOKENTYPEENUM): Promise<void> {
+    //     let token: string = '';
+    //     let ttl: number = 0;
+    //     if (type === TOKENTYPEENUM.ACCESS) {
+    //         token = `access-uuid_${user.accessUUID}:${user.id}`;
+    //         ttl = new Date(user.exp).getTime() - new Date().getTime();
+    //     } else if (type === TOKENTYPEENUM.REFRESH) {
+    //         token = `refresh-uuid_${user.accessUUID}:${user.id}`;
+    //         ttl = new Date(user.exp).getTime() - new Date().getTime();
+    //     }
+    //     // Store the token in Redis with the specified TTL
+    //     // await this..set(token, 'valid', 'EX', ttl);
+    // }
 }
